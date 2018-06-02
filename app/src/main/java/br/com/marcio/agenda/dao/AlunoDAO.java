@@ -39,12 +39,7 @@ public class AlunoDAO extends SQLiteOpenHelper{
 
         SQLiteDatabase db = getWritableDatabase();
 
-        ContentValues dados = new ContentValues();
-        dados.put("nome", aluno.getNome());
-        dados.put("endereco", aluno.getEndereco());
-        dados.put("telefone", aluno.getTelefone());
-        dados.put("site", aluno.getSite());
-        dados.put("nota", aluno.getNota());
+        ContentValues dados = pegaDadosDoAluno(aluno);
 
         db.insert("Alunos", null, dados);
 
@@ -82,5 +77,27 @@ public class AlunoDAO extends SQLiteOpenHelper{
         String[] params = {aluno.getId().toString()};
         db.delete("Alunos", "id = ?", params);
 
+    }
+
+    public void altera(Aluno aluno) {
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues dados = pegaDadosDoAluno(aluno);
+
+        String[] params = {aluno.getId().toString()};
+
+        db.update("Alunos", dados, "id = ?", params);
+
+    }
+
+    private ContentValues pegaDadosDoAluno(Aluno aluno) {
+        ContentValues dados = new ContentValues();
+        dados.put("nome", aluno.getNome());
+        dados.put("endereco", aluno.getEndereco());
+        dados.put("telefone", aluno.getTelefone());
+        dados.put("site", aluno.getSite());
+        dados.put("nota", aluno.getNota());
+        return dados;
     }
 }
