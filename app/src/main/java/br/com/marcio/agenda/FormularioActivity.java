@@ -1,5 +1,6 @@
 package br.com.marcio.agenda;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,7 +23,16 @@ public class FormularioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
 
+        Intent intent = getIntent();
+        Aluno aluno  = (Aluno) intent.getSerializableExtra("aluno");
+
         helper = new FormularioHelper(this);
+
+        if(aluno != null){
+            helper.preencheFormulario(aluno);
+        }
+
+
 
     }
 
